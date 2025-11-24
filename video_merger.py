@@ -44,10 +44,12 @@ class VideoMergerApp:
 
     def __init__(self, root):
         """Initialize the application."""
+        print("DEBUG: Initializing VideoMergerApp...")
         self.root = root
         self.root.title("Video Merger")
         self.root.geometry("700x550")
         self.root.minsize(600, 450)
+        print("DEBUG: Window configured")
 
         # List to store video file paths
         self.video_files = []
@@ -56,13 +58,22 @@ class VideoMergerApp:
         self.merging = False
 
         # Setup the UI
-        self._setup_ui()
+        print("DEBUG: Setting up UI...")
+        try:
+            self._setup_ui()
+            print("DEBUG: UI setup complete")
+        except Exception as e:
+            print(f"ERROR during UI setup: {e}")
+            import traceback
+            traceback.print_exc()
 
     def _setup_ui(self):
         """Setup the user interface."""
+        print("DEBUG: Creating main frame...")
         # Main frame with padding
         main_frame = ttk.Frame(self.root, padding="10")
         main_frame.grid(row=0, column=0, sticky="nsew")
+        print("DEBUG: Main frame created")
 
         # Configure grid weights for resizing
         self.root.columnconfigure(0, weight=1)
@@ -412,7 +423,9 @@ class VideoMergerApp:
 
 def main():
     """Main entry point for the application."""
+    print("DEBUG: Starting main()...")
     root = tk.Tk()
+    print("DEBUG: Tk root created")
 
     # Set app icon if available
     try:
@@ -425,17 +438,24 @@ def main():
         pass
 
     # Create and run the application
+    print("DEBUG: Creating VideoMergerApp...")
     app = VideoMergerApp(root)
+    print("DEBUG: VideoMergerApp created")
 
     # Center window on screen
+    print("DEBUG: Centering window...")
     root.update_idletasks()
     width = root.winfo_width()
     height = root.winfo_height()
+    print(f"DEBUG: Window size: {width}x{height}")
     x = (root.winfo_screenwidth() // 2) - (width // 2)
     y = (root.winfo_screenheight() // 2) - (height // 2)
     root.geometry(f"+{x}+{y}")
+    print(f"DEBUG: Window centered at {x},{y}")
 
+    print("DEBUG: Starting mainloop...")
     root.mainloop()
+    print("DEBUG: Mainloop ended")
 
 
 if __name__ == "__main__":
