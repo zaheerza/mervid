@@ -217,6 +217,10 @@ class VideoMergerApp:
         info_label = ttk.Label(main_frame, text=info_text, font=("Helvetica", 8))
         info_label.grid(row=6, column=0)
 
+        # Force update to ensure rendering on macOS
+        self.root.update_idletasks()
+        self.root.update()
+
     def _add_videos(self):
         """Open file dialog to add video files."""
         files = filedialog.askopenfilenames(
@@ -452,6 +456,12 @@ def main():
     y = (root.winfo_screenheight() // 2) - (height // 2)
     root.geometry(f"+{x}+{y}")
     print(f"DEBUG: Window centered at {x},{y}")
+
+    # Force window to front on macOS
+    root.lift()
+    root.attributes('-topmost', True)
+    root.after_idle(root.attributes, '-topmost', False)
+    root.update()
 
     print("DEBUG: Starting mainloop...")
     root.mainloop()
