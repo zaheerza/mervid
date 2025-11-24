@@ -13,12 +13,17 @@ from tkinter import ttk, filedialog, messagebox
 from pathlib import Path
 from datetime import datetime
 
-# Video processing imports
+# Video processing imports - handle both moviepy 1.x and 2.x
 try:
-    from moviepy.editor import VideoFileClip, concatenate_videoclips
+    # moviepy 2.0+ (new API)
+    from moviepy import VideoFileClip, concatenate_videoclips
 except ImportError:
-    print("Error: moviepy is not installed. Please run: pip install moviepy")
-    sys.exit(1)
+    try:
+        # moviepy 1.x (old API)
+        from moviepy.editor import VideoFileClip, concatenate_videoclips
+    except ImportError:
+        print("Error: moviepy is not installed. Please run: pip install moviepy")
+        sys.exit(1)
 
 
 class VideoMergerApp:
