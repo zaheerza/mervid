@@ -2,6 +2,10 @@
 
 A simple GUI application to merge multiple video clips into one video file.
 
+**Two versions available:**
+- **PyQt5 version** (`video_merger_qt.py`) - **Recommended for macOS** - Better compatibility
+- **Tkinter version** (`video_merger.py`) - Uses built-in Python GUI library
+
 ## Features
 
 - Drag and drop multiple video files
@@ -13,7 +17,7 @@ A simple GUI application to merge multiple video clips into one video file.
 
 ## Installation
 
-### Option 1: Run from Source
+### Option 1: Run from Source (PyQt5 - Recommended)
 
 1. Install Python 3.8 or higher from [python.org](https://www.python.org/downloads/)
 
@@ -24,29 +28,40 @@ A simple GUI application to merge multiple video clips into one video file.
 
 3. Run the application:
    ```bash
+   python video_merger_qt.py
+   ```
+
+### Option 2: Run from Source (Tkinter)
+
+1. Install Python 3.8 or higher
+
+2. Install dependencies:
+   ```bash
+   pip install moviepy pillow numpy
+   ```
+
+3. Run the application:
+   ```bash
    python video_merger.py
    ```
 
-### Option 2: Create Windows Executable
+**Note for macOS users:** If you see a blank window with the Tkinter version, use the PyQt5 version instead (`video_merger_qt.py`).
 
-1. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+### Create Windows Executable
 
-2. Run the build script:
-   ```bash
-   python build_executable.py
-   ```
-
-3. Find the executable at `dist/VideoMerger.exe`
-
-### Manual PyInstaller Build
-
-If you prefer to build manually, run:
+**PyQt5 version (recommended):**
 ```bash
-pyinstaller --onefile --windowed --name VideoMerger video_merger.py
+pip install -r requirements.txt
+python build_executable_qt.py
 ```
+
+**Tkinter version:**
+```bash
+pip install -r requirements.txt
+python build_executable.py
+```
+
+Find the executable at `dist/VideoMerger.exe`
 
 ## Usage
 
@@ -78,13 +93,28 @@ pyinstaller --onefile --windowed --name VideoMerger video_merger.py
 
 ## Requirements
 
+**For PyQt5 version:**
 - Python 3.8+
+- PyQt5
 - moviepy
 - pillow
 - numpy
 - FFmpeg (bundled with imageio-ffmpeg)
 
+**For Tkinter version:**
+- Python 3.8+
+- moviepy
+- pillow
+- numpy
+- FFmpeg (bundled with imageio-ffmpeg)
+- tkinter (usually included with Python)
+
 ## Troubleshooting
+
+### Blank window on macOS (Tkinter version)
+The system Tk on macOS is deprecated and has rendering issues. **Solution:**
+- Use the PyQt5 version instead: `python video_merger_qt.py`
+- Or install PyQt5: `pip install PyQt5`
 
 ### "moviepy not found" error
 Run: `pip install moviepy`
@@ -93,7 +123,7 @@ Run: `pip install moviepy`
 - Ensure all videos have the same frame rate for best results
 - Try selecting a specific resolution (720p or 1080p) to normalize all clips
 
-### Executable won't start
+### Executable won't start (Windows)
 - Make sure you have Windows 10/11
 - Try running as Administrator
 - Check if Windows Defender is blocking the application
