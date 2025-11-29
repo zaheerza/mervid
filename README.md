@@ -2,9 +2,10 @@
 
 A simple GUI application to merge multiple video clips into one video file.
 
-**Two versions available:**
-- **PyQt5 version** (`video_merger_qt.py`) - **Recommended for macOS** - Better compatibility
-- **Tkinter version** (`video_merger.py`) - Uses built-in Python GUI library
+**Three versions available:**
+- **Streamlit version** (`video_merger_streamlit.py`) - **⭐ Recommended** - Web-based, works on all platforms
+- **PyQt5 version** (`video_merger_qt.py`) - Desktop app, great for macOS
+- **Tkinter version** (`video_merger.py`) - Desktop app, uses built-in Python GUI library
 
 ## Features
 
@@ -17,7 +18,29 @@ A simple GUI application to merge multiple video clips into one video file.
 
 ## Installation
 
-### Option 1: Run from Source (PyQt5 - Recommended)
+### Option 1: Run Streamlit Web Version (⭐ Recommended)
+
+1. Install Python 3.8 or higher from [python.org](https://www.python.org/downloads/)
+
+2. Install dependencies:
+   ```bash
+   pip install streamlit moviepy pillow numpy
+   ```
+
+3. Run the web application:
+   ```bash
+   streamlit run video_merger_streamlit.py
+   ```
+
+4. Your browser will open automatically at `http://localhost:8501`
+
+**Features:**
+- 🌐 Web-based - Access from any browser
+- 📱 Works on all platforms (Windows, Mac, Linux)
+- ☁️ Can be deployed to cloud (Streamlit Cloud, Heroku, etc.)
+- 🎨 Modern, responsive UI
+
+### Option 2: Run from Source (PyQt5 Desktop)
 
 1. Install Python 3.8 or higher from [python.org](https://www.python.org/downloads/)
 
@@ -92,6 +115,14 @@ Find the executable at `dist/VideoMerger.exe`
 - MKV
 
 ## Requirements
+
+**For Streamlit version:**
+- Python 3.8+
+- streamlit
+- moviepy
+- pillow
+- numpy
+- FFmpeg (bundled with imageio-ffmpeg)
 
 **For PyQt5 version:**
 - Python 3.8+
