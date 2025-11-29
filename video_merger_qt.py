@@ -40,6 +40,18 @@ class MergeThread(QThread):
         self.output_path = output_path
         self.resolution = resolution
 
+    @staticmethod
+    def resize_clip(clip, **kwargs):
+        """Resize clip - compatible with both moviepy 1.x and 2.x."""
+        # Try new API first (moviepy 2.0+)
+        if hasattr(clip, 'resized'):
+            return clip.resized(**kwargs)
+        # Fall back to old API (moviepy 1.x)
+        elif hasattr(clip, 'resize'):
+            return clip.resize(**kwargs)
+        else:
+            raise AttributeError(f"VideoFileClip has no resize method")
+
     def run(self):
         """Run the merge process."""
         clips = []
@@ -58,13 +70,13 @@ class MergeThread(QThread):
 
                 # Resize if needed
                 if self.resolution == "720p":
-                    clip = clip.resize(height=720)
+                    clip = self.resize_clip(clip, height=720)
                 elif self.resolution == "1080p":
-                    clip = clip.resize(height=1080)
+                    clip = self.resize_clip(clip, height=1080)
                 elif self.resolution == "original" and i > 0 and clips:
                     # Resize to match first video's dimensions
                     target_size = clips[0].size
-                    clip = clip.resize(newsize=target_size)
+                    clip = self.resize_clip(clip, newsize=target_size)
 
                 clips.append(clip)
 
