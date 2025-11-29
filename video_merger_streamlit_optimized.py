@@ -285,8 +285,6 @@ def merge_videos_moviepy_optimized(video_files, resolution, progress_callback=No
             ],
 
             logger=None,
-            temp_audiofile_path=None,
-            remove_temp=True,
             write_logfile=False
         )
 
