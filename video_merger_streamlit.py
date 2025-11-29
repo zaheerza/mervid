@@ -29,6 +29,9 @@ def resize_clip(clip, **kwargs):
     """Resize clip - compatible with both moviepy 1.x and 2.x."""
     # Try new API first (moviepy 2.0+)
     if hasattr(clip, 'resized'):
+        # MoviePy 2.0+ uses 'size' instead of 'newsize'
+        if 'newsize' in kwargs:
+            kwargs['size'] = kwargs.pop('newsize')
         return clip.resized(**kwargs)
     # Fall back to old API (moviepy 1.x)
     elif hasattr(clip, 'resize'):
